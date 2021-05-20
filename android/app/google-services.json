@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1053752659781",
+    "project_id": "peterpen-sianji-ee360",
+    "storage_bucket": "peterpen-sianji-ee360.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053752659781:android:2dca1a4485bffa9f53782c",
+        "android_client_info": {
+          "package_name": "com.example.peterpan_app2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053752659781-rmg3qmkck0bgum3lnu0hcd1o85rgreo8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.peterpan_app2",
+            "certificate_hash": "294880a3a6320d7e312a7250225e49926a9b0fad"
+          }
+        },
+        {
+          "client_id": "1053752659781-9luq79emihij7t6s4ru1belf28qbtii8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP8EJixj6Ur_vrewU4e3dMMhkpTtktJPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053752659781-9luq79emihij7t6s4ru1belf28qbtii8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
