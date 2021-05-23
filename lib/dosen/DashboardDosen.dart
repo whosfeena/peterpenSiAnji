@@ -2,17 +2,18 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
 
-class Dosen extends StatefulWidget {
+class DashboardDosen extends StatefulWidget {
   final String nama, email, foto;
-  Dosen ({this.nama, this.email,this.foto});
+  DashboardDosen ({this.nama, this.email,this.foto});
 
   @override
-  _DosenState createState() => _DosenState();
+  _DashboardDosenState createState() => _DashboardDosenState();
 }
 
-class _DosenState extends State<Dosen> {
+class _DashboardDosenState extends State<DashboardDosen> {
   bool _isLoggedIn = false;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
@@ -68,10 +69,11 @@ class _DosenState extends State<Dosen> {
                               children: <Widget>[
                                 Image.asset(
                                   'assets/images/list_dosen.png', height: 100,),
-                                Text('Daftar Dosen', style: cardTextStyle)
+                                Text('Daftar Dosen', style: cardTextStyle),
                               ],
                             ),
                           ),
+
                           Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)
@@ -114,7 +116,10 @@ class _DosenState extends State<Dosen> {
                               ],
                             ),
                           ),
-
+                          RaisedButton(
+                            onPressed: (){
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListDosen()),);
+                            },)
                         ],
                         crossAxisCount: 2),
                   ),

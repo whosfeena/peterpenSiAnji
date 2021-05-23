@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peterpan_app2/main.dart';
 
-class Mahasiswa extends StatefulWidget {
+class DashboardMahasiswa extends StatefulWidget {
   final String nama,email,foto;
-  Mahasiswa({this.nama, this.email,this.foto});
+  DashboardMahasiswa({this.nama, this.email,this.foto});
 
   @override
-  _MahasiswaState createState() => _MahasiswaState();
+  _DashboardMahasiswaState createState() => _DashboardMahasiswaState();
 }
 
-class _MahasiswaState extends State<Mahasiswa> {
+class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   bool _isLoggedIn = false;
 
