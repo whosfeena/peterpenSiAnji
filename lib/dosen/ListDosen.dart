@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:peterpan_app2/apiservices.dart';
+import 'package:peterpan_app2/dosen/DashboardDosen.dart';
+import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
 import 'package:peterpan_app2/model.dart';
 import 'ListJadwalJanjianDosen.dart';
 
@@ -54,8 +56,10 @@ class _ListDosenState extends State<ListDosen> {
                             style: TextStyle(fontSize:11,
                                 color: Colors.teal
                             )),
+                        leading: Icon(Icons.person),
+                        trailing: Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
                         },
                       ),
                     )

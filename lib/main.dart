@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/FormRegisterDosen.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'dosen/DashboardDosen.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ListDosen(),
+      home: DashboardMahasiswa(),
     );
   }
 }
@@ -37,10 +38,10 @@ class _LoginPageState extends State<LoginPage> {
     final googleUser = await GoogleSignIn().signIn();
     if(googleUser != null && googleUser.email.contains("si.ukdw.ac.id")){
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => DashboardMahasiswa(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
+          MaterialPageRoute(builder: (context) => DashboardDosen(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
     } else if(googleUser != null && googleUser.email.contains("gmail.com")){
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => DashboardDosen(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
+          MaterialPageRoute(builder: (context) => DashboardMahasiswa(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
     }
 
   }

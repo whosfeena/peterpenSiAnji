@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
 
@@ -30,11 +31,13 @@ class _DashboardDosenState extends State<DashboardDosen> {
     var size = MediaQuery.of(context).size;
 
 
+
     //style
     var cardTextStyle = TextStyle(fontFamily: "Montserrat Regular", fontSize: 14, color: Color.fromRGBO(
         135, 18, 224, 1.0));
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(title: Text("Dashboard Dosen")),
       body: Stack(
         children: <Widget>[
@@ -50,7 +53,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
 
           SafeArea(
             child: Padding(
-              padding:  EdgeInsets.all(16.0),
+              padding:  EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
                   Expanded(
@@ -60,68 +63,75 @@ class _DashboardDosenState extends State<DashboardDosen> {
                         primary: false,
                         children: <Widget>[
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_dosen.png', height: 100,),
-                                Text('Daftar Dosen', style: cardTextStyle),
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.format_list_bulleted, size: 60.0),
+                                    Text("Daftar Janjian", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
 
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_janjian.png', height: 100,),
-                                Text('Melihat Daftar Janjian Tersedia', style: cardTextStyle,)
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.verified_outlined, size: 60.0,),
+                                    Text("Verifikasi Janjian", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
+
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_disetujui.png', height: 100,),
-                                Text('Melihat Daftar Jadwal Janjian Disetujui', style: cardTextStyle,)
-                              ],
-                            ),
-                          ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/upload.png', height: 100,),
-                                Text('Pengajuan Janjian', style: cardTextStyle,)
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.graphic_eq_rounded, size: 60.0,),
+                                    Text("Grafik Janjian", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                          RaisedButton(
-                            onPressed: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListDosen()),);
-                            },)
                         ],
-                        crossAxisCount: 2),
+                        crossAxisCount: 3),
                   ),
                 ],
               ),
@@ -129,6 +139,8 @@ class _DashboardDosenState extends State<DashboardDosen> {
           ),
         ],
       ),
+
+
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical

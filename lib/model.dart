@@ -100,8 +100,8 @@ class Janjian{
   String kd_janjian;
   String nim;
   String nidn;
-  int tgl;
-  int jam;
+  String tgl;
+  String jam;
   String tempat;
   String ketJanjian;
   String sttsJanjian;
@@ -115,8 +115,8 @@ class Janjian{
         kd_janjian: map["kd_janjian"],
         nim: map["nim"],
         nidn: map["nidn"],
-        tgl: int.parse(map["tgl"]),
-        jam: int.parse(map["jam"]),
+        tgl: map["tgl"],
+        jam: map["jam"],
         tempat: map["tempat"],
         ketJanjian: map["ketJanjian"],
         sttsJanjian: map["sttsJanjian"],

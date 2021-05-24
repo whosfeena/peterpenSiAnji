@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
 
 class apiservices {
-  final String baseUrl = "http://192.168.1.7/peterpensianji/aplikasi-slim/public";
+  final String baseUrl = "http://192.168.1.6/peterpensianji/aplikasi-slim/public";
 
   Client client = Client();
 
@@ -23,6 +23,17 @@ class apiservices {
       return false;
     }
   }
+
+  //Melihat daftar janjian yang dimiliki dosen
+  Future<List<Janjian>> viewJanjianbyNidn() async {
+    final response = await client.get("$baseUrl/jadwalAll/");
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
 
 
   // ----------- Dosen ----------- //
@@ -73,39 +84,7 @@ class apiservices {
     }
   }
 
-  /*//Create jadwal janjian by Dosen
-  Future<bool> createJadwal(String kode, int tgl, int jam) async {
-    int idDosen, idMatkul;
-    List<Janjian> janjian = await getOneMatakuliah(kode);
-    developer.log("janjian : "+janjian.toString());
-    if(janjian == null || janjian.length == 0) {
-      return false;
-    } else {
-      idMatkul = int.parse(janjian[0].id);
-    }
-    List<Dosen> dosen = await getOneDosen(nidn);
-    developer.log("dosen : "+dosen.toString());
-    if(dosen == null || dosen.length == 0) {
-      return false;
-    } else {
-      idDosen = int.parse(dosen[0].id);
-    }
-    developer.log("id matkul : "+idMatkul.toString());
-    developer.log("id dosen : "+idDosen.toString());
-    final response = await client.post("$baseUrl/Dosen/CreateJanjian/",
-        headers: {"content-type": "application/json"},
-        body: json.encode({
-          "id_dosen": idDosen,
-          "id_matkul": idMatkul,
-          "nim_progmob": nimProgmob
-        })
-    );
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  /*
 
 
 

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
 
 class DashboardMahasiswa extends StatefulWidget {
@@ -55,64 +56,76 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                         primary: false,
                         children: <Widget>[
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_dosen.png', height: 100,),
-                                Text('Daftar Dosen', style: cardTextStyle),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_janjian.png', height: 100,),
-                                Text('Melihat Daftar Janjian Tersedia', style: cardTextStyle,)
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.people_sharp, size: 60.0),
+                                    Text("Daftar Dosen", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
+
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/list_disetujui.png', height: 100,),
-                                Text('Melihat Daftar Jadwal Janjian Disetujui', style: cardTextStyle,)
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.format_list_bulleted, size: 60.0),
+                                    Text("Daftar Janjian ", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
+
                           Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            elevation:4,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/upload.png', height: 100,),
-                                Text('Pengajuan Janjian', style: cardTextStyle,)
-                              ],
+                            margin:EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                );
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(Icons.add, size: 60.0),
+                                    Text("Ajukan Janjian", style: TextStyle(
+                                        color: Colors.indigo,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
 
                         ],
-                        crossAxisCount: 2),
+                        crossAxisCount: 3),
                   ),
                 ],
               ),
