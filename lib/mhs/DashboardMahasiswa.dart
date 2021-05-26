@@ -4,17 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
+import 'package:peterpan_app2/mhs/DaftarJanjianMhs.dart';
+import 'package:peterpan_app2/mhs/FormMhsBuatJadwal.dart';
+import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
 
 class DashboardMahasiswa extends StatefulWidget {
-  final String nama,email,foto;
-  DashboardMahasiswa({this.nama, this.email,this.foto});
+  final String title;
+  final String nim;
+  final String namaMhs;
+  final String username;
+  final String email;
+
+  DashboardMahasiswa({Key key, this.title, this.nim, this.namaMhs, this.username, this.email}) : super(key: key);
 
   @override
-  _DashboardMahasiswaState createState() => _DashboardMahasiswaState();
+  _DashboardMahasiswaState createState() => _DashboardMahasiswaState(title,nim,namaMhs,username,email);
 }
 
 class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  String nim;
+  String namaMhs;
+  String username;
+  String title;
+  String email;
+
+  _DashboardMahasiswaState(this.title, this.nim, this.namaMhs, this.username ,this.email);
+
   bool _isLoggedIn = false;
 
   _logout() async{
@@ -24,6 +40,8 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
     });
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginPage()));
   }
+
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -83,7 +101,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                  context, MaterialPageRoute(builder: (context) => DaftarJanjianMhs(title: "Daftar Janjian Mahasiswa",)),
                                 );
                               },
                               child: Center(
@@ -106,7 +124,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                  context, MaterialPageRoute(builder: (context) => FormMhsBuatJadwal(title: "Buat Jadwal Janjian",)),
                                 );
                               },
                               child: Center(
@@ -147,10 +165,10 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:  <Widget>[
-                    CircleAvatar(
+                    /*CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage('https://ssat.ukdw.ac.id/_photos/informasi/72180194.jpg'),
-                    ),
+                   //   backgroundImage: NetworkImage('https://ssat.ukdw.ac.id/_photos/informasi/72180194.jpg'),
+                    ),*/
                     SizedBox(width: 16,),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

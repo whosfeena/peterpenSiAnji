@@ -25,8 +25,9 @@ class apiservices {
   }
 
   //Melihat daftar janjian yang dimiliki dosen
-  Future<List<Janjian>> viewJanjianbyNidn() async {
-    final response = await client.get("$baseUrl/jadwalAll/");
+  Future<List<Janjian>> viewJanjianbyNidn(String nidn) async {
+
+    final response = await client.get("$baseUrl/Mhs/LihatJanjianDosen/"+nidn);
     if (response.body.isNotEmpty){
       return janjianFromJson(response.body);
     }else{
@@ -34,7 +35,39 @@ class apiservices {
     }
   }
 
+  //Melihat daftar janjian yang dimiliki Mahasiswa
+  Future<List<Janjian>> viewJanjianbyNim(String nim) async {
+    final response = await client.get("$baseUrl/Mhs/LihatJanjianDosen/");
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
 
+// ----------- UserGoogle ----------- //
+  Future<bool> createSession(UserGoogle data) async{
+    final response = await client.post("$baseUrl/UserGoogle/Add/",
+        headers: {"content-type": "application/json"},
+        body: UserGoogleToJson(data)
+    );
+    if(response.statusCode ==200){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  Future<bool> validate (UserGoogle dtvalidate) async{
+    final response = await client.post("$baseUrl/UserGoogle/Validate",
+        headers: {"content-type": "application/json"},
+        body: UserGoogleToJson(dtvalidate)
+    );
+    if(response.body != null){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   // ----------- Dosen ----------- //
 
@@ -48,7 +81,7 @@ class apiservices {
     }
   }
 
-  //Menampilkan nama dosen berdasarkan nidn
+  //Menampilkan jadwal berdasarkan nidn
   Future<List<Dosen>> getOneDosen(String nidn) async{
     final response = await client.get("$baseUrl/DosenGetByID/"+nidn);
     if (response.statusCode == 200){
@@ -60,24 +93,11 @@ class apiservices {
 
   //Create Data Dosen Dosen
   Future<bool> createDosen(Dosen data) async{
-    var request = http.MultipartRequest(
-        'POST',
-        Uri.parse("$baseUrl/Dosen/Register/")
+    final response = await client.post("$baseUrl/Dosen/Register/",
+        headers: {"content-type": "application/json"},
+        body: dosenToJson(data)
     );
-
-    Map<String,String> headers={
-      "Content-type":"multipart/form-data"
-    };
-
-    request.headers.addAll(headers);
-    request.fields.addAll({
-      "nidn":data.nidn,
-      "id":data.id.toString(),
-      "namaDosen":data.namaDosen
-    });
-
-    var response = await request.send();
-    if(response.statusCode == 200){
+    if(response.statusCode ==200){
       return true;
     }else{
       return false;

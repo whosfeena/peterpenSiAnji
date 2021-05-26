@@ -9,15 +9,24 @@ import 'package:peterpan_app2/model.dart';
 import 'ListJadwalJanjianDosen.dart';
 
 class ListDosen extends StatefulWidget {
-  ListDosen({Key key, this.title}) : super(key: key);
+
   final String title;
+  String kd_janjian;
+
+  ListDosen({Key key, @required this.title, @required this.kd_janjian}) : super(key: key);
   @override
-  _ListDosenState createState() => _ListDosenState();
+  _ListDosenState createState() => _ListDosenState(title, kd_janjian);
 }
 
 class _ListDosenState extends State<ListDosen> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>_formKey = GlobalKey<FormState>();
+  final String title;
+  final String kd_janjian;
+  bool _isLoading = false;
   List<Dosen> dsn = new List();
+  List<Janjian> janjian = new List();
+
+  _ListDosenState(this.title, this.kd_janjian);
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
@@ -35,7 +44,8 @@ class _ListDosenState extends State<ListDosen> {
             return Center(
               child: Text("Error: ${snapshot.error.toString()}"),
             );
-          } else if (snapshot.connectionState == ConnectionState.done) {
+          } else if (snapshot.connectionState == ConnectionState.done)
+          {
             dsn = snapshot.data;
             return ListView.builder(
               itemBuilder: (context, position) {
@@ -59,11 +69,17 @@ class _ListDosenState extends State<ListDosen> {
                         leading: Icon(Icons.person),
                         trailing: Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
-                        },
+                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
+                          Navigator.pop(context);
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ListJadwalJanjianDosen(title: "Jadwal Janjian Dosen",
+                               nidn:dsn[position].nidn)),
+                          ).then(onGoBack);
+                          },
                       ),
-                    )
-                );
+                      ),
+                    );
               },
               itemCount: dsn.length,
             );

@@ -4,46 +4,98 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/FormRegisterDosen.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
+import 'package:peterpan_app2/mhs/FormRegisterMahasiswa.dart';
 import 'dosen/DashboardDosen.dart';
+import 'package:peterpan_app2/apiservices.dart';
 
 
 import 'mhs/DashboardMahasiswa.dart';
+import 'model.dart';
+
 
 void main()=>runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+
+  MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardMahasiswa(),
+      home: LoginPage(),
     );
   }
 }
 
 class LoginPage extends StatefulWidget {
+  String title;
+  String username;
+  String role;
+  LoginPage({Key key, @required this.title, @required this.username, @required this.role}) : super(key: key);
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState(title,username,role);
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool _isLoggedIn = false;
+  String title;
+  String username;
+  String role;
+  UserGoogle google = new UserGoogle();
 
+  bool validate = false;
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
+  _LoginPageState(this.title, this.username, this.role);
+
   _login() async{
     final googleUser = await GoogleSignIn().signIn();
+    UserGoogle Google = new UserGoogle();
     if(googleUser != null && googleUser.email.contains("si.ukdw.ac.id")){
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => DashboardDosen(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
-    } else if(googleUser != null && googleUser.email.contains("gmail.com")){
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => DashboardMahasiswa(nama: googleUser.displayName, email: googleUser.email, foto: googleUser.photoUrl,)));
-    }
+      UserGoogle Google = new UserGoogle();
+      Google.username = googleUser.email;
+      Google.role = "0";
 
+      apiservices().validate(this.google).then((isSuccess){
+
+        if(isSuccess) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) =>
+                  DashboardDosen(namaDosen: googleUser.displayName,
+                      email: googleUser.email)));
+        }
+        else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) =>
+                  FormRegisterDosen()));
+        }
+      });
+
+
+    } else if(googleUser != null && googleUser.email.contains("gmail.com")){
+      UserGoogle Google = new UserGoogle();
+      Google.username = googleUser.email;
+      Google.role = "1";
+
+      apiservices().validate(this.google).then((isSuccess){
+        if(isSuccess) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) =>
+                  DashboardMahasiswa(
+                    namaMhs: googleUser.displayName, email: googleUser.email,)));
+        }
+        else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) =>
+                  FormRegisterMahasiswa()));
+        }
+      });
+
+
+    }
   }
 
   _logout() async{

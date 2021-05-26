@@ -33,22 +33,24 @@ class DashboardSiAnji{
 //-------------------------------daftar mahasiswa------------------
 class Mahasiswa {
   String nim;
-  String kode;
+  String id;
   String namaMhs;
+  String username;
 
 
-  Mahasiswa({this.nim, this.kode, this.namaMhs});
+  Mahasiswa({this.nim, this.id, this.namaMhs,this.username});
 
   factory Mahasiswa.fromJson(Map<String, dynamic> map){
     return Mahasiswa(
         nim: map["nim"],
-        kode: map["kode"],
-        namaMhs: map["namaMhs"]
+        id: map["id"],
+        namaMhs: map["namaMhs"],
+        username: map["username"]
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"nim": nim, "kode": kode, "namaMhs": namaMhs};
+    return {"nim": nim, "id": id, "namaMhs": namaMhs,"username" : username};
   }
 }
 
@@ -65,22 +67,22 @@ String mahasiswaToJson(Mahasiswa data){
 //-------------------------daftar dosen----------------------------
 class Dosen{
   String nidn;
-  String id;
   String namaDosen;
+  String username;
 
-  Dosen({this.nidn, this.id, this.namaDosen,});
+  Dosen({this.nidn,this.namaDosen, this.username});
 
 
   factory Dosen.fromJson(Map<String, dynamic> map){
     return Dosen(
         nidn: map["nidn"],
-        id: map["id"],
         namaDosen: map["namaDosen"],
+        username: map["username"]
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"nidn": nidn, "id": id, "namaDosen": namaDosen};
+    return {"nidn": nidn, "namaDosen": namaDosen, "username": username};
   }
 }
 
@@ -134,6 +136,34 @@ List<Janjian> janjianFromJson(String jsonData){
 }
 
 String janjianToJson(Janjian data){
+  final jsonData = data.toJson();
+  return json.encode(jsonData);
+}
+
+//-------------------------------daftar mahasiswa------------------
+class UserGoogle {
+  String username;
+  String role;
+  UserGoogle ({this.username,this.role});
+
+  factory UserGoogle.fromJson(Map<String, dynamic> map){
+    return UserGoogle(
+        username: map["username"],
+        role: map["role"]
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {"username" : username,"role" : role};
+  }
+}
+
+List<UserGoogle> UserGoogleFromJson(String jsonData){
+  final data = json.decode(jsonData);
+  return List<UserGoogle>.from(data.map((item) => UserGoogle.fromJson(item)));
+}
+
+String UserGoogleToJson(UserGoogle data){
   final jsonData = data.toJson();
   return json.encode(jsonData);
 }

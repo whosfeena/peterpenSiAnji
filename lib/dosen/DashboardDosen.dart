@@ -7,16 +7,26 @@ import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
 
 class DashboardDosen extends StatefulWidget {
-  final String nama, email, foto;
-  DashboardDosen ({this.nama, this.email,this.foto});
+  final String title;
+  final String nidn;
+  final String namaDosen;
+  final String username;
+  final String email;
+  DashboardDosen({Key key, this.title, this.nidn, this.namaDosen, this.username, this.email}) : super(key: key);
 
   @override
-  _DashboardDosenState createState() => _DashboardDosenState();
+  _DashboardDosenState createState() => _DashboardDosenState(title,nidn,namaDosen,username,email);
 }
 
 class _DashboardDosenState extends State<DashboardDosen> {
+  String nidn;
+  String namaDosen;
+  String username;
+  String title;
+  String email;
   bool _isLoggedIn = false;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  _DashboardDosenState(this.title, this.nidn, this.namaDosen, this.username ,this.email);
 
   _logout() async{
     _googleSignIn.signOut();
@@ -155,10 +165,10 @@ class _DashboardDosenState extends State<DashboardDosen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:  <Widget>[
-                    CircleAvatar(
+                    /*CircleAvatar(
                       radius: 30,
                       backgroundImage: NetworkImage('https://ssat.ukdw.ac.id/_photos/informasi/72180194.jpg'),
-                    ),
+                    ),*/
                     SizedBox(width: 16,),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -8,18 +8,30 @@ import 'package:peterpan_app2/model.dart';
 import '../apiservices.dart';
 
 class ListJadwalJanjianDosen extends StatefulWidget {
-  ListJadwalJanjianDosen({Key key, this.title}) : super(key: key);
+
   final String title;
+  Janjian janjian;
+  String kd_janjian;
+  String nidn;
+
+  ListJadwalJanjianDosen({Key key, @required this.title, @required this.nidn}) : super(key: key);
 
   @override
-  _ListJadwalJanjianDosenState createState() => _ListJadwalJanjianDosenState();
+  _ListJadwalJanjianDosenState createState() => _ListJadwalJanjianDosenState(title, kd_janjian, nidn);
 }
 
 class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>_formKey = GlobalKey<FormState>();
+  final String title;
+  final String kd_janjian;
+  final String nidn;
+  bool _isLoading = false;
   List<Janjian> janjian = new List();
+  List<Dosen> dsn = new List();
+  List<Mahasiswa> mhs = new List();
 
-  String get nidn => null;
+  _ListJadwalJanjianDosenState(this.title, this.kd_janjian, this.nidn);
+
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
@@ -30,7 +42,7 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
     return Scaffold(
       appBar: new AppBar(title: Text("Jadwal Janjian Dosen")),
       body: FutureBuilder(
-        future: apiservices().viewJanjianbyNidn(),
+        future: apiservices().viewJanjianbyNidn(nidn),
         builder:
             (BuildContext context, AsyncSnapshot<List<Janjian>> snapshot) {
           if (snapshot.hasError) {
@@ -53,12 +65,33 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
                                 fontSize:15,
                                 fontWeight: FontWeight.bold)
                         ),
-                        subtitle: Text("Tanggal : " + janjian[position].tgl + "\nJam : " + janjian[position].jam.toString() + "\nTersedia : " + janjian[position].isAvailable
+                        subtitle: Text("Tanggal : " + janjian[position].tgl + "\nJam : " + janjian[position].jam.toString() + "\nTersedia"
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
                         trailing: Icon(Icons.arrow_drop_down_circle_outlined),
                         onTap: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
+                          showDialog(
+                            context: context,
+                              builder: (_) => new AlertDialog(
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    OutlineButton(
+                                      child: Text("Pilih Jadwal"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Pengajuan Janjian",
+                                              nidn:dsn[position].nidn)),
+                                        ).then(onGoBack);
+                                      },
+                                    ),
+                                  ]
+                              )
+                          ),
+                          );
+                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
                         },
                       ),
                     )
