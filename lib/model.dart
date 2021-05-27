@@ -33,24 +33,22 @@ class DashboardSiAnji{
 //-------------------------------daftar mahasiswa------------------
 class Mahasiswa {
   String nim;
-  String id;
   String namaMhs;
   String username;
 
 
-  Mahasiswa({this.nim, this.id, this.namaMhs,this.username});
+  Mahasiswa({this.nim,this.namaMhs,this.username});
 
   factory Mahasiswa.fromJson(Map<String, dynamic> map){
     return Mahasiswa(
         nim: map["nim"],
-        id: map["id"],
         namaMhs: map["namaMhs"],
         username: map["username"]
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"nim": nim, "id": id, "namaMhs": namaMhs,"username" : username};
+    return {"nim": nim,"namaMhs": namaMhs,"username" : username};
   }
 }
 
@@ -140,7 +138,7 @@ String janjianToJson(Janjian data){
   return json.encode(jsonData);
 }
 
-//-------------------------------daftar mahasiswa------------------
+//-------------------------------daftar userGoogle------------------
 class UserGoogle {
   String username;
   String role;

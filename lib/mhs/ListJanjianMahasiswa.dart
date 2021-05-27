@@ -2,46 +2,47 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
-import 'package:peterpan_app2/model.dart';
 
 import '../apiservices.dart';
+import '../model.dart';
+import 'FormPengajuanJanjianMhs.dart';
 
-class ListJadwalJanjianDosen extends StatefulWidget {
-
+class ListJanjianMahasiswa extends StatefulWidget {
   final String title;
+  Mahasiswa mhs;
+  String nim;
+  String namaMhs;
+  String username;
   Janjian janjian;
   String kd_janjian;
-  String nidn;
-
-  ListJadwalJanjianDosen({Key key, @required this.title, @required this.nidn, @required this.kd_janjian}) : super(key: key);
+  ListJanjianMahasiswa({Key key, @required this.title, @required this.nim, @required this.username, @required this.kd_janjian}) : super(key: key);
 
   @override
-  _ListJadwalJanjianDosenState createState() => _ListJadwalJanjianDosenState(title, kd_janjian, nidn);
+  _ListJanjianMahasiswaState createState() => _ListJanjianMahasiswaState(title, nim, namaMhs, username, kd_janjian);
 }
 
-class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
+class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
   final GlobalKey<FormState>_formKey = GlobalKey<FormState>();
   final String title;
+  final String nim;
+  final String namaMhs;
+  final String username;
   final String kd_janjian;
-  final String nidn;
   bool _isLoading = false;
-  List<Janjian> janjian = new List();
-  List<Dosen> dsn = new List();
   List<Mahasiswa> mhs = new List();
+  List<Janjian> janjian = new List();
 
-  _ListJadwalJanjianDosenState(this.title, this.kd_janjian, this.nidn);
+  _ListJanjianMahasiswaState(this.title, this.nim, this.namaMhs, this.username, this.kd_janjian);
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(title: Text("Jadwal Janjian Dosen")),
+      appBar: new AppBar(title: Text("Daftar Pengajuan"),),
       body: FutureBuilder(
-        future: apiservices().viewJanjianbyNidn(nidn),
+        future: apiservices().viewJanjianbyNim(nim),
         builder:
             (BuildContext context, AsyncSnapshot<List<Janjian>> snapshot) {
           if (snapshot.hasError) {
@@ -64,31 +65,37 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
                                 fontSize:15,
                                 fontWeight: FontWeight.bold)
                         ),
-                        subtitle: Text("Tanggal : " + janjian[position].tgl + "\nJam : " + janjian[position].jam.toString() + "\nTersedia"
+                        subtitle: Text("NIM : " + janjian[position].nim +
+                            "\nNIDN : " + janjian[position].nidn +
+                            "\nTanggal : " + janjian[position].tgl.toString() +
+                            "\nJam : " + janjian[position].jam.toString() +
+                            "\nTempat : " + janjian[position].tempat +
+                            "\nKeterangan : " + janjian[position].ketJanjian +
+                            "\nStatus Janjian : " + janjian[position].sttsJanjian
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
                         trailing: Icon(Icons.arrow_drop_down_circle_outlined),
                         onTap: () {
                           showDialog(
                             context: context,
-                              builder: (_) => new AlertDialog(
+                            builder: (_) => new AlertDialog(
                                 content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    OutlineButton(
-                                      child: Text("Pilih Jadwal"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Pengajuan Janjian",
-                                              nidn:dsn[position].nidn)),
-                                        ).then(onGoBack);
-                                      },
-                                    ),
-                                  ]
-                              )
-                          ),
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      OutlineButton(
+                                        child: Text("Pilih Jadwal"),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Pengajuan Janjian",
+                                                nim:mhs[position].nim)),
+                                          ).then(onGoBack);
+                                        },
+                                      ),
+                                    ]
+                                )
+                            ),
                           );
                           //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
                         },

@@ -23,6 +23,15 @@ class apiservices {
       return false;
     }
   }
+  //Menampilkan semua mahasiswa
+  Future<List<Mahasiswa>> getMhs() async{
+    final response = await client.get("$baseUrl/MahasiswaGetAll/");
+    if (response.body.isNotEmpty){
+      return mahasiswaFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
 
   //Melihat daftar janjian yang dimiliki dosen
   Future<List<Janjian>> viewJanjianbyNidn(String nidn) async {
@@ -37,7 +46,7 @@ class apiservices {
 
   //Melihat daftar janjian yang dimiliki Mahasiswa
   Future<List<Janjian>> viewJanjianbyNim(String nim) async {
-    final response = await client.get("$baseUrl/Mhs/LihatJanjianDosen/");
+    final response = await client.get("$baseUrl/Mhs/JanjianbyNim/"+nim);
     if (response.body.isNotEmpty){
       return janjianFromJson(response.body);
     }else{
@@ -57,17 +66,31 @@ class apiservices {
       return false;
     }
   }
-  Future<bool> validate (UserGoogle dtvalidate) async{
+  Future<bool> validate (String Username,String role) async{
+    UserGoogle model = new UserGoogle();
+    model.username = Username;
+    model.role =  role;
     final response = await client.post("$baseUrl/UserGoogle/Validate",
         headers: {"content-type": "application/json"},
-        body: UserGoogleToJson(dtvalidate)
+        body: UserGoogleToJson(model)
     );
-    if(response.body != null){
+    if(response.body.isNotEmpty ){
+      return true;
+    }
+    else
+      {
+        return null;
+      }
+  }
+  Future<bool> validateUser(String username) async{
+    final response = await client.get("$baseUrl/UserGoogle/"+username);
+    if (response.body != null){
       return true;
     }else{
       return false;
     }
   }
+
 
   // ----------- Dosen ----------- //
 

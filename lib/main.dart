@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart';
 import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/FormRegisterDosen.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: LoginPage (),
     );
   }
 }
@@ -32,10 +33,10 @@ class LoginPage extends StatefulWidget {
   String title;
   String username;
   String role;
-  LoginPage({Key key, @required this.title, @required this.username, @required this.role}) : super(key: key);
+  LoginPage({Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState(title,username,role);
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -44,43 +45,66 @@ class _LoginPageState extends State<LoginPage> {
   String username;
   String role;
   UserGoogle google = new UserGoogle();
+  List<UserGoogle> gle = new List();
 
   bool validate = false;
 
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
-  _LoginPageState(this.title, this.username, this.role);
 
   _login() async{
     final googleUser = await GoogleSignIn().signIn();
-    UserGoogle Google = new UserGoogle();
+
     if(googleUser != null && googleUser.email.contains("si.ukdw.ac.id")){
-      UserGoogle Google = new UserGoogle();
-      Google.username = googleUser.email;
-      Google.role = "0";
+      UserGoogle google = new UserGoogle();
+      google.username = googleUser.email;
+      google.role = "0";
+     String valid ;
+valid = get(apiservices().validate(googleUser.email,"0")).toString();
 
-      apiservices().validate(this.google).then((isSuccess){
+  if(valid == "true")
+    {
 
-        if(isSuccess) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) =>
+              DashboardDosen(namaDosen: googleUser.displayName,
+                  email: googleUser.email)));
+    }
+  else
+    {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) =>
+              FormRegisterDosen()));
+
+    }
+     /* apiservices().validate(googleUser.email,"0").then((isSuccess){
+      if (isSuccess == true)
+        {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) =>
                   DashboardDosen(namaDosen: googleUser.displayName,
                       email: googleUser.email)));
         }
-        else {
+      else
+        {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) =>
                   FormRegisterDosen()));
         }
+
+
       });
+*/
+
+
 
 
     } else if(googleUser != null && googleUser.email.contains("gmail.com")){
-      UserGoogle Google = new UserGoogle();
-      Google.username = googleUser.email;
-      Google.role = "1";
+      UserGoogle google = new UserGoogle();
+      google.username = googleUser.email;
+      google.role = "1";
 
-      apiservices().validate(this.google).then((isSuccess){
+      apiservices().validateUser(googleUser.email).then((isSuccess){
         if(isSuccess) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) =>
@@ -97,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
 
     }
   }
+
 
   _logout() async{
     _googleSignIn.signOut();

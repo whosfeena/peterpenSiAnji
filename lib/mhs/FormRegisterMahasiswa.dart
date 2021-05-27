@@ -94,7 +94,6 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                 ),
                   onSaved: (String value) {
                     this.mahasiswa.username = value;
-                    this.mahasiswa.id = "2";
                     this.Google.username = value;
                     this.Google.role = "1";
 
@@ -122,7 +121,6 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => DashboardMahasiswa(title: "Dashboard Mahasiswa",)));
                 }
-
               ),
 
               _isLoading
