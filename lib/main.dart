@@ -5,6 +5,9 @@ import 'package:http/http.dart';
 import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/FormRegisterDosen.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
+import 'package:peterpan_app2/dosen/ListJadwalJanjianDosen.dart';
+import 'package:peterpan_app2/mhs/FormMhsBuatJadwal.dart';
+import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
 import 'package:peterpan_app2/mhs/FormRegisterMahasiswa.dart';
 import 'dosen/DashboardDosen.dart';
 import 'package:peterpan_app2/apiservices.dart';
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage (),
+      home: DashboardMahasiswa(),
     );
   }
 }

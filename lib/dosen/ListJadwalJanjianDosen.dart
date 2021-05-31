@@ -27,7 +27,7 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
   final String nidn;
   bool _isLoading = false;
   List<Janjian> janjian = new List();
-  List<Dosen> dsn = new List();
+  List<Dosen> dosen = new List();
   List<Mahasiswa> mhs = new List();
 
   _ListJadwalJanjianDosenState(this.title, this.kd_janjian, this.nidn);
@@ -81,8 +81,8 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
                                         Navigator.pop(context);
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Pengajuan Janjian",
-                                              nidn:dsn[position].nidn)),
+                                          MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Form Pengajuan Janjian",
+                                              janjian:janjian[position])),
                                         ).then(onGoBack);
                                       },
                                     ),

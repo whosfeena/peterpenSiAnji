@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
 
 class apiservices {
-  final String baseUrl = "http://192.168.1.6/peterpensianji/aplikasi-slim/public";
+  final String baseUrl = "http://192.168.1.7/peterpensianji/aplikasi-slim/public";
 
   Client client = Client();
 
@@ -35,7 +35,6 @@ class apiservices {
 
   //Melihat daftar janjian yang dimiliki dosen
   Future<List<Janjian>> viewJanjianbyNidn(String nidn) async {
-
     final response = await client.get("$baseUrl/Mhs/LihatJanjianDosen/"+nidn);
     if (response.body.isNotEmpty){
       return janjianFromJson(response.body);
@@ -127,11 +126,104 @@ class apiservices {
     }
   }
 
+
+
+
+
+  // ----------- Janjian ----------- //
+  Future<bool> mhsCreateJanjian(Janjian data) async{
+    final response = await client.post("$baseUrl/Mhs/CreateJanjian/",
+        headers: {"content-type": "application/json"},
+        body: janjianToJson(data)
+    );
+    if(response.statusCode ==200){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Future<List<Janjian>> viewJanjianDisetujui(String nim) async {
+    final response = await client.get("$baseUrl/Mhs/JanjianDisetujui/"+nim);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+
+  Future<List<Janjian>> viewJanjianbyKode(String kd_janjian) async {
+    final response = await client.get("$baseUrl/Mhs/ShowJanjianByKodeJanjian/"+kd_janjian);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+  Future<bool> deleteJanjian(String kd_janjian) async{
+    final response = await client.delete("$baseUrl/Mhs/DeleteJanjian/"+kd_janjian);
+    if(response.statusCode == 200){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Future<bool> mhsAjukanJdwlJanji(Janjian data, String kd_janjian) async {
+    final response = await client.post("$baseUrl/Mhs/UpdateJanjian/",
+        headers: {"content-type": "application/json"},
+        body: json.encode({
+          "kd_janjian": data.kd_janjian,
+          "nim": data.nim,
+          "nidn": data.nidn,
+          "tgl": data.tgl,
+          "jam": data.jam,
+          "tempat": data.tempat,
+          "ketJanjian": data.ketJanjian,
+          "sttsJanjian": data.sttsJanjian,
+          "isAvailable": data.isAvailable
+        })
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /*
-
-
-
-  // ----------- Jadwal
   Future<List<Jadwal>> getJadwal() async{
     final response = await client.get("$baseUrl/api/progmob/jadwal/72180188");
     if (response.statusCode == 200){

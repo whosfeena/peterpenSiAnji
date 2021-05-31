@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:peterpan_app2/mhs/FormMhsBuatJadwal.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
-import 'FormPengajuanJanjianMhs.dart';
 
-class ListJanjianMahasiswa extends StatefulWidget {
+class ListJanjianDisetujui extends StatefulWidget {
   final String title;
   Mahasiswa mhs;
   String nim;
@@ -16,13 +14,13 @@ class ListJanjianMahasiswa extends StatefulWidget {
   String username;
   Janjian janjian;
   String kd_janjian;
-  ListJanjianMahasiswa({Key key, @required this.title, @required this.nim, @required this.username, @required this.kd_janjian}) : super(key: key);
+  ListJanjianDisetujui({Key key, @required this.title, @required this.nim, @required this.username, @required this.kd_janjian}) : super(key: key);
 
   @override
-  _ListJanjianMahasiswaState createState() => _ListJanjianMahasiswaState(title, nim, namaMhs, username, kd_janjian);
+  _ListJanjianDisetujuiState createState() => _ListJanjianDisetujuiState(title, nim, namaMhs, username, kd_janjian);
 }
 
-class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
+class _ListJanjianDisetujuiState extends State<ListJanjianDisetujui> {
   final GlobalKey<FormState>_formKey = GlobalKey<FormState>();
   final String title;
   final String nim;
@@ -33,30 +31,18 @@ class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
   List<Mahasiswa> mhs = new List();
   List<Janjian> janjian = new List();
 
-  _ListJanjianMahasiswaState(this.title, this.nim, this.namaMhs, this.username, this.kd_janjian);
+  _ListJanjianDisetujuiState(this.title, this.nim, this.namaMhs, this.username, this.kd_janjian);
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FormMhsBuatJadwal(title: "Pengajuan Janjian")),
-                ).then(onGoBack);
-              },
-            )
-          ]
-      ),
+      appBar: new AppBar(title: Text("Daftar Pengajuan"),),
       body: FutureBuilder(
-        future: apiservices().viewJanjianbyNim(nim),
+        future: apiservices().viewJanjianDisetujui(nim),
         builder:
             (BuildContext context, AsyncSnapshot<List<Janjian>> snapshot) {
           if (snapshot.hasError) {
@@ -89,28 +75,6 @@ class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
                         trailing: Icon(Icons.arrow_drop_down_circle_outlined),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => new AlertDialog(
-                                content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      OutlineButton(
-                                        child: Text("Hapus Janjian"),
-                                        onPressed: () async{
-                                          Navigator.pop(context);
-                                          janjian[position].isAvailable = "FALSE";
-                                          apiservices().deleteJanjian(janjian[position].kd_janjian);
-                                          setState(() {});
-                                        }
-                                      ),
-                                    ]
-                                )
-                            ),
-                          );
-                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FormPengajuanJanjianMhs()),);
-                        },
                       ),
                     )
                 );

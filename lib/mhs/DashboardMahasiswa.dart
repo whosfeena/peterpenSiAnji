@@ -7,6 +7,7 @@ import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/main.dart';
 import 'package:peterpan_app2/mhs/FormMhsBuatJadwal.dart';
 import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
+import 'package:peterpan_app2/mhs/ListJanjianDisetujui.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
@@ -59,7 +60,9 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
     var cardTextStyle = TextStyle(fontFamily: "Montserrat Regular", fontSize: 14, color: Color.fromRGBO(
         135, 18, 224, 1.0));
     return Scaffold(
-      appBar: AppBar(title: Text("Dashboard Mahasiswa")),
+      appBar: AppBar(title: Text("Dashboard Mahasiswa"),
+      centerTitle: true,
+      ),
       body: FutureBuilder(
         future: apiservices().getMhs(),
         builder:
@@ -146,7 +149,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => FormMhsBuatJadwal(title: "Buat Jadwal Janjian",)),
+                                        context, MaterialPageRoute(builder: (context) => FormMhsBuatJadwal(title: "Buat Jadwal Janjian", nim:mhs.nim)),
                                       );
                                     },
                                     child: Center(
@@ -164,6 +167,28 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                   ),
                                 ),
 
+                                Card(
+                                  margin:EdgeInsets.all(2.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => ListJanjianDisetujui(title: "Buat Jadwal Janjian", nim:mhs.nim)),
+                                      );
+                                    },
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(Icons.verified_outlined, size: 60.0),
+                                          Text("Janjian Disetujui", style: TextStyle(
+                                              color: Colors.indigo,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                               crossAxisCount: 3),
                         ),

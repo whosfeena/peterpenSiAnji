@@ -14,7 +14,7 @@ class _listjanjianState extends State<listjanjian> {
     return Scaffold(
       appBar: new AppBar(
         leading: new Icon(Icons.list),
-        title: new Text('List Janjian Tersedia'),
+        title: new Text('Pengajuan Janjian'),
         backgroundColor: Colors.teal,
       ),
       body: new Container(
