@@ -191,6 +191,7 @@ class _FormPengajuanJanjianMhsState extends State<FormPengajuanJanjianMhs> {
                     initialValue: this.janjian.ketJanjian,
                     onSaved: (String value) {
                       this.janjian.ketJanjian = value;
+                      this.janjian.createdBy = "dosen";
                       },
                   ),
 

@@ -13,6 +13,7 @@ import 'dosen/DashboardDosen.dart';
 import 'package:peterpan_app2/apiservices.dart';
 
 
+import 'dosen/ViewJadwalJanjianDosen.dart';
 import 'mhs/DashboardMahasiswa.dart';
 import 'model.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardMahasiswa(),
+      home: DashboardDosen(),
     );
   }
 }

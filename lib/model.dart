@@ -106,9 +106,10 @@ class Janjian{
   String ketJanjian;
   String sttsJanjian;
   String isAvailable;
+  String createdBy;
 
   Janjian({this.kd_janjian, this.nim, this.nidn, this.tgl, this.jam,
-    this.tempat, this.ketJanjian, this.sttsJanjian, this.isAvailable});
+    this.tempat, this.ketJanjian, this.sttsJanjian, this.isAvailable, this.createdBy});
 
   factory Janjian.fromJson(Map<String, dynamic> map){
     return Janjian(
@@ -121,11 +122,12 @@ class Janjian{
         ketJanjian: map["ketJanjian"],
         sttsJanjian: map["sttsJanjian"],
         isAvailable: map["isAvailable"],
+        createdBy: map["createdBy"]
     );
   }
   Map<String, dynamic> toJson(){
     return{"kd_janjian":kd_janjian, "nim": nim, "nidn": nidn, "tgl": tgl, "jam": jam,
-      "tempat": tempat, "ketJanjian": ketJanjian, "sttsJanjian": sttsJanjian, "isAvailable": isAvailable};
+      "tempat": tempat, "ketJanjian": ketJanjian, "sttsJanjian": sttsJanjian, "isAvailable": isAvailable, "createdBy":createdBy};
   }
 }
 List<Janjian> janjianFromJson(String jsonData){

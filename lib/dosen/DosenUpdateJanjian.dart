@@ -3,30 +3,48 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:peterpan_app2/model.dart';
 
 import '../apiservices.dart';
+import '../model.dart';
 
-class DosenAddJadwalJanjian extends StatefulWidget {
-  String title;
-  String nidn;
+class DosenUpdateJanjian extends StatefulWidget {
+  final String title;
   Janjian janjian;
   Dosen dosen;
-  DosenAddJadwalJanjian({Key key, this.title, this.janjian, this.dosen, this.nidn}) : super(key: key);
+  String nidn;
+  String nim;
+  String kd_janjian;
+  DosenUpdateJanjian({Key key, this.title, this.janjian, this.dosen, this.nidn, this.nim, this.kd_janjian}) : super(key: key);
 
   @override
-  _DosenAddJadwalJanjianState createState() => _DosenAddJadwalJanjianState(title,janjian,dosen,nidn);
+  _DosenUpdateJanjianState createState() => _DosenUpdateJanjianState(title,
+      janjian,
+      dosen,
+      nidn,
+      nim,
+      kd_janjian);
 }
 
-class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
-  String title;
-  final String nidn;
-  Janjian janjian;
-  Dosen dosen;
-  List<Janjian> janji = new List();
-  Janjian model = new Janjian();
+class _DosenUpdateJanjianState extends State<DosenUpdateJanjian> {
   final _formKey = GlobalKey<FormState>();
+  final String title;
+  final String nidn;
+  final String nim;
+  final String kd_janjian;
+  Janjian janjian;
+  bool _isLoading = false;
+  List<Janjian> janji = new List();
+  List<Dosen> dsn = new List();
+  Janjian model = new Janjian();
+  Dosen dosen;
+  DateTime _selectDate;
 
+  _DosenUpdateJanjianState(this.title,
+      this.janjian,
+      this.dosen,
+      this.nidn,
+      this.nim,
+      this.kd_janjian);
 
   final DateFormat dateFormat = DateFormat.yMMMMd();
 
@@ -37,9 +55,6 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
   DateTime _date = DateTime.now();
   TimeOfDay _time = TimeOfDay.now();
   TextEditingController intialdateval = TextEditingController();
-
-  _DosenAddJadwalJanjianState(this.title, this.janjian, this.dosen, this.nidn);
-
 
 
   //class date
@@ -82,30 +97,65 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
     setState(() {});
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: Text("Tambah Jadwal Janjian"),),
+      appBar: new AppBar(title: Text("Update Jadwal Janjian"),),
       body: Form(
         key: _formKey,
+        //mhs.nim = "72180188";
         child: SingleChildScrollView(
           padding: EdgeInsets.all(15.0),
           child: Column(
               children: <Widget>[
+                Text('Anda Akan Mengajukan Jadwal Janjian Diluar Jadwal yang Dimiliki Dosen',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+
+                Padding(
+                    padding: EdgeInsets.all(5.0)
+                ),
 
                 SizedBox(height: 15,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
+                    enabled: false,
                     prefixIcon: Icon(
                         Icons.format_list_numbered),
-                    labelText: "NIDN Dosen",
-                    hintText: "Masukkan NIDN",
+                    labelText: "NIM",
+                    hintText: "Masukkan NIM",
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.fromLTRB(
                         20.0, 15.0, 20.0, 15.0),
                   ),
-                  //initialValue: this.janjian.nidn,
+                  initialValue: this.janjian.nim.toString(),
+                  onSaved: (String value) {
+                    this.model.nim = value;
+                    this.model.kd_janjian = this.janjian.kd_janjian.toString();
+                  },
+                ),
+
+                SizedBox(height: 15,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    enabled: false,
+                    prefixIcon: Icon(
+                        Icons.format_list_numbered),
+                    labelText: "NIDN Dosen",
+                    hintText: "Masukkan NIDN Dosen",
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.fromLTRB(
+                        20.0, 15.0, 20.0, 15.0),
+                  ),
+                  initialValue: this.janjian.nidn,
                   onSaved: (String value) {
                     this.model.nidn = value;
                   },
@@ -129,7 +179,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                     contentPadding: EdgeInsets.fromLTRB(
                         20.0, 15.0, 20.0, 15.0),
                   ),
-                  //initialValue: this.janjian.tgl.toString(),
+                  initialValue: this.janjian.tgl.toString(),
                   onSaved: (String value) {
                     this.model.tgl = _date.toString();
                   },
@@ -139,8 +189,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                 ),
                 TextFormField(
                   //readOnly: true,
-
-                  //initialValue: this.janjian.jam.toString(),
+                  initialValue: this.janjian.jam.toString(),
                   onTap: () async {
                     setState(() {
                       selectedTime(context).toString();
@@ -160,6 +209,45 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                   },
                 ),
 
+                SizedBox(height: 15,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.place),
+                    enabled: true,
+                    labelText: "Tempat",
+                    hintText: "Masukkan Tempat",
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.fromLTRB(
+                        20.0, 15.0, 20.0, 15.0),
+                  ),
+                  initialValue: this.janjian.tempat,
+                  onSaved: (String value) {
+                    this.model.tempat = value;
+                  },
+                ),
+
+                SizedBox(height: 15,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.pending_rounded),
+                    enabled: true,
+                    labelText: "Keterangan Janjian",
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.fromLTRB(
+                        20.0, 15.0, 20.0, 15.0),
+                  ),
+                  initialValue: this.janjian.ketJanjian,
+                  onSaved: (String value) {
+                    this.model.ketJanjian = value;
+                  },
+                ),
+
+                Padding(
+                    padding: EdgeInsets.all(15.0)
+                ),
+
                 MaterialButton(
                     minWidth: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -173,12 +261,15 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                     ),
                     onPressed: () async {
                       _formKey.currentState.save();
-                      model.isAvailable = "TRUE";
+                      model.isAvailable = "FALSE";
                       model.sttsJanjian= "MENUNGGU";
-                      apiservices().dosenCreateJanjian(this.model);
+                      model.createdBy = "dosen";
+                      apiservices().dosenUpdateJanjian(this.model, kd_janjian);
                       Navigator.pop(context);
                     }
                 ),
+
+
               ]
           ),
         ),

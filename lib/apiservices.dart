@@ -126,6 +126,17 @@ class apiservices {
     }
   }
 
+  //Dosen Lihat janjian yang masih tersedia
+
+  Future<List<Janjian>> viewJanjianTersdiabyNidn(String nidn) async {
+    final response = await client.get("$baseUrl/Dosen/LihatJanjianTersedia/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
 
 
 
@@ -133,6 +144,18 @@ class apiservices {
   // ----------- Janjian ----------- //
   Future<bool> mhsCreateJanjian(Janjian data) async{
     final response = await client.post("$baseUrl/Mhs/CreateJanjian/",
+        headers: {"content-type": "application/json"},
+        body: janjianToJson(data)
+    );
+    if(response.statusCode ==200){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Future<bool> dosenCreateJanjian(Janjian data) async{
+    final response = await client.post("$baseUrl/Dosen/CreateJanjian/",
         headers: {"content-type": "application/json"},
         body: janjianToJson(data)
     );
@@ -183,7 +206,8 @@ class apiservices {
           "tempat": data.tempat,
           "ketJanjian": data.ketJanjian,
           "sttsJanjian": data.sttsJanjian,
-          "isAvailable": data.isAvailable
+          "isAvailable": data.isAvailable,
+          "createdBy" : data.createdBy
         })
     );
     if (response.statusCode == 200) {
@@ -193,7 +217,82 @@ class apiservices {
     }
   }
 
+  Future<List<Janjian>> viewJanjianCreatedbyDosen(String nidn) async {
+    final response = await client.get("$baseUrl/Janjian/Created/Dosen/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
 
+  Future<List<Janjian>> viewJanjianCreatedbyNim(String nidn) async {
+    final response = await client.get("$baseUrl/Janjian/Created/mhs/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+  Future<List<Janjian>> viewJanjianAllDsn(String nidn) async {
+    final response = await client.get("$baseUrl/DosenViewAllJanjian/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+
+  Future<bool> dosenUpdateJanjian(Janjian data, String kd_janjian) async {
+    final response = await client.post("$baseUrl/Dosen/UpdateJanjian/",
+        headers: {"content-type": "application/json"},
+        body: json.encode({
+          "kd_janjian": data.kd_janjian,
+          "nim": data.nim,
+          "nidn": data.nidn,
+          "tgl": data.tgl,
+          "jam": data.jam,
+          "tempat": data.tempat,
+          "ketJanjian": data.ketJanjian,
+          "sttsJanjian": data.sttsJanjian,
+          "isAvailable": data.isAvailable,
+          "createdBy" : data.createdBy
+        })
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<List<Janjian>> verifikasiJanjianTerima(String kd_janjian) async {
+    final response = await client.get("$baseUrl/Dosen/VerifikasiJanjian/"+kd_janjian);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+  Future<List<Janjian>> verifikasiJanjianTolak(String kd_janjian) async {
+    final response = await client.get("$baseUrl/Dosen/VerifikasiJanjian/tolak/"+kd_janjian);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+  Future<List<Janjian>> ViewJanjianMenuggu(String nidn) async {
+    final response = await client.get("$baseUrl/Dosen/verifikasi/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
 
 
 

@@ -246,6 +246,7 @@ class _FormMhsBuatJadwalState extends State<FormMhsBuatJadwal> {
                       _formKey.currentState.save();
                       model.isAvailable = "FALSE";
                       model.sttsJanjian= "MENUNGGU";
+                      model.createdBy = nim;
                       apiservices().mhsCreateJanjian(this.model);
                       Navigator.pop(context);
                     }
