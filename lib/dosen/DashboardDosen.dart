@@ -10,7 +10,7 @@ import 'package:peterpan_app2/main.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
-import 'ViewJadwalJanjianDosen.dart';
+import 'MenuDaftarJanjian.dart';
 
 class DashboardDosen extends StatefulWidget {
   final String title;
@@ -99,7 +99,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => ViewJadwalJanjianDosen(title: "Jadwal Janjian Dosen", nidn:dsn.nidn)),
+                                        context, MaterialPageRoute(builder: (context) => MenuDaftarJanjian(title: "Jadwal Janjian Dosen", nidn:dsn.nidn)),
                                       );
                                     },
                                     child: Center(
@@ -121,9 +121,9 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   margin:EdgeInsets.all(2.0),
                                   child: InkWell(
                                     onTap: (){
-                                      /*Navigator.push(
+                                      Navigator.push(
                                         context, MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Daftar Pengajuan", nidn:dsn.nidn)),
-                                      );*/
+                                      );
                                     },
                                     child: Center(
                                       child: Column(

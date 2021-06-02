@@ -160,6 +160,9 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                   },
                 ),
 
+                Padding(padding: EdgeInsets.all(10.0)
+                ),
+
                 MaterialButton(
                     minWidth: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

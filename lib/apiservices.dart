@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
 
 class apiservices {
-  final String baseUrl = "http://192.168.1.7/peterpensianji/aplikasi-slim/public";
+  final String baseUrl = "http://172.20.10.3/peterpensianji/aplikasi-slim/public";
 
   Client client = Client();
 
@@ -287,6 +287,16 @@ class apiservices {
 
   Future<List<Janjian>> ViewJanjianMenuggu(String nidn) async {
     final response = await client.get("$baseUrl/Dosen/verifikasi/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+  //Melihat daftar janjian yang dimiliki dosen
+  Future<List<Janjian>> viewJanjianByDosenTersedia(String nidn) async {
+    final response = await client.get("$baseUrl/Dosen/LihatJanjianDosenTersedia/"+nidn);
     if (response.body.isNotEmpty){
       return janjianFromJson(response.body);
     }else{

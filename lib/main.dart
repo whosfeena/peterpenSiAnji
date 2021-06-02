@@ -13,7 +13,7 @@ import 'dosen/DashboardDosen.dart';
 import 'package:peterpan_app2/apiservices.dart';
 
 
-import 'dosen/ViewJadwalJanjianDosen.dart';
+import 'dosen/MenuDaftarJanjian.dart';
 import 'mhs/DashboardMahasiswa.dart';
 import 'model.dart';
 

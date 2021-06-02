@@ -6,28 +6,29 @@ import 'package:peterpan_app2/dosen/ListJadwalJanjianDosen.dart';
 import 'package:peterpan_app2/dosen/ViewAllJanjianDosen.dart';
 import 'package:peterpan_app2/dosen/ViewJanjianDosenAll.dart';
 import 'package:peterpan_app2/dosen/ViewJanjianReqByMhs.dart';
+import 'package:peterpan_app2/dosen/ViewJanjianTersediaByDosen.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
 
-class ViewJadwalJanjianDosen extends StatefulWidget {
+class MenuDaftarJanjian extends StatefulWidget {
   String title;
   String kd_janjian;
   String nidn;
   Dosen dosen;
 
-  ViewJadwalJanjianDosen({Key key, this.title, this.nidn, this.dosen }) : super(key: key);
+  MenuDaftarJanjian({Key key, this.title, this.nidn, this.dosen }) : super(key: key);
 
   @override
-  _ViewJadwalJanjianDosenState createState() => _ViewJadwalJanjianDosenState(title,nidn,dosen);
+  _MenuDaftarJanjianState createState() => _MenuDaftarJanjianState(title,nidn,dosen);
 }
 
-class _ViewJadwalJanjianDosenState extends State<ViewJadwalJanjianDosen> {
+class _MenuDaftarJanjianState extends State<MenuDaftarJanjian> {
   String title;
   String kd_janjian;
   String nidn;
   Dosen dosen;
-  _ViewJadwalJanjianDosenState(this.title, this.nidn, this.dosen);
+  _MenuDaftarJanjianState(this.title, this.nidn, this.dosen);
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
@@ -52,7 +53,7 @@ class _ViewJadwalJanjianDosenState extends State<ViewJadwalJanjianDosen> {
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       color: Colors.teal,
-                        fontSize:11)),
+                        fontSize:8)),
                 onTap: () {
                   //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                   Navigator.push(
@@ -77,7 +78,7 @@ class _ViewJadwalJanjianDosenState extends State<ViewJadwalJanjianDosen> {
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                         color: Colors.teal,
-                        fontSize:11),),
+                        fontSize:8),),
                 onTap: () {
                   //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                   Navigator.push(
@@ -102,13 +103,39 @@ class _ViewJadwalJanjianDosenState extends State<ViewJadwalJanjianDosen> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         color: Colors.teal,
-                        fontSize:11),
+                        fontSize:8),
                   ),
                   onTap: () {
                     //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ViewJanjianDosenAll(title: "Jadwal Janjian Dosen",
+                          nidn: nidn)),
+                    ).then(onGoBack);
+                  },
+                )
+            ),
+
+            Card(
+                child: ListTile(
+                  leading: Icon(Icons.list_alt,),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  title: Text('Lihat Daftar Janjian Tersedia',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize:15,
+                          fontWeight: FontWeight.bold)),
+                  subtitle: Text('Menampilkan jadwal yang belum diambil mahasiswa.',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.teal,
+                        fontSize:8),
+                  ),
+                  onTap: () {
+                    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ViewJanjianTersediaByDosen(title: "Jadwal Janjian Dosen",
                           nidn: nidn)),
                     ).then(onGoBack);
                   },
