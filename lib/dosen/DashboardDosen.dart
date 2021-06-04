@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/DosenVerifikasi.dart';
+import 'package:peterpan_app2/dosen/DosenViewGrafik.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/dosen/ListJadwalJanjianDosen.dart';
 import 'package:peterpan_app2/main.dart';
+import 'package:peterpan_app2/mhs/ListJanjianDisetujui.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
@@ -129,8 +131,8 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
-                                          Icon(Icons.format_list_bulleted, size: 60.0),
-                                          Text("Kelola Jadwal", style: TextStyle(
+                                          Icon(Icons.add, size: 60.0),
+                                          Text("Tambah Jadwal", style: TextStyle(
                                               color: Colors.indigo,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 11)),
@@ -145,7 +147,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => DosenVerifikasi(title: "Buat Jadwal Janjian", nidn:dsn.nidn)),
+                                        context, MaterialPageRoute(builder: (context) => DosenVerifikasi(title: "Janjian Menunggu", nidn:dsn.nidn)),
                                       );
                                     },
                                     child: Center(
@@ -163,20 +165,20 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   ),
                                 ),
 
-                                /*Card(
+                                Card(
                                   margin:EdgeInsets.all(2.0),
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => ListJanjianDisetujui(title: "Buat Jadwal Janjian", nim:mhs.nim)),
+                                        context, MaterialPageRoute(builder: (context) => DosenViewGrafik(title: "Grafik Janjian Anda")),
                                       );
                                     },
                                     child: Center(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
-                                          Icon(Icons.verified_outlined, size: 60.0),
-                                          Text("Janjian Disetujui", style: TextStyle(
+                                          Icon(Icons.graphic_eq_outlined, size: 60.0),
+                                          Text("Grafik Janjian", style: TextStyle(
                                               color: Colors.indigo,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 11)),
@@ -184,7 +186,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                       ),
                                     ),
                                   ),
-                                ),*/
+                                ),
                               ],
                               crossAxisCount: 3),
                         ),

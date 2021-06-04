@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../apiservices.dart';
 import '../model.dart';
 
-class ListJanjianDisetujui extends StatefulWidget {
+class ListJanjianDitolak extends StatefulWidget {
   final String title;
   Mahasiswa mhs;
   String nim;
@@ -14,13 +14,14 @@ class ListJanjianDisetujui extends StatefulWidget {
   String username;
   Janjian janjian;
   String kd_janjian;
-  ListJanjianDisetujui({Key key, @required this.title, @required this.nim, @required this.username, @required this.kd_janjian}) : super(key: key);
+
+  ListJanjianDitolak({Key key, @required this.title, @required this.nim, @required this.username, @required this.kd_janjian}) : super(key: key);
 
   @override
-  _ListJanjianDisetujuiState createState() => _ListJanjianDisetujuiState(title, nim, namaMhs, username, kd_janjian);
+  _ListJanjianDitolakState createState() => _ListJanjianDitolakState(title, nim, namaMhs, username, kd_janjian);
 }
 
-class _ListJanjianDisetujuiState extends State<ListJanjianDisetujui> {
+class _ListJanjianDitolakState extends State<ListJanjianDitolak> {
   final GlobalKey<FormState>_formKey = GlobalKey<FormState>();
   final String title;
   final String nim;
@@ -31,7 +32,7 @@ class _ListJanjianDisetujuiState extends State<ListJanjianDisetujui> {
   List<Mahasiswa> mhs = new List();
   List<Janjian> janjian = new List();
 
-  _ListJanjianDisetujuiState(this.title, this.nim, this.namaMhs, this.username, this.kd_janjian);
+  _ListJanjianDitolakState(this.title, this.nim, this.namaMhs, this.username, this.kd_janjian);
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
@@ -44,7 +45,7 @@ class _ListJanjianDisetujuiState extends State<ListJanjianDisetujui> {
         title: Text(widget.title),
       ),
       body: FutureBuilder(
-        future: apiservices().viewJanjianDisetujui(nim),
+        future: apiservices().viewJanjianDitolak(nim),
         builder:
             (BuildContext context, AsyncSnapshot<List<Janjian>> snapshot) {
           if (snapshot.hasError) {
@@ -69,11 +70,11 @@ class _ListJanjianDisetujuiState extends State<ListJanjianDisetujui> {
                         ),
                         subtitle: Text(
                             "NIDN Dosen       : " + janjian[position].nidn +
-                            "\nTanggal              : " + janjian[position].tgl.toString() +
-                            "\nJam                    : " + janjian[position].jam.toString() +
-                            "\nTempat              : " + janjian[position].tempat +
-                            "\nKeterangan       : " + janjian[position].ketJanjian +
-                            "\nStatus Janjian  : " + janjian[position].sttsJanjian
+                                "\nTanggal              : " + janjian[position].tgl.toString() +
+                                "\nJam                    : " + janjian[position].jam.toString() +
+                                "\nTempat              : " + janjian[position].tempat +
+                                "\nKeterangan       : " + janjian[position].ketJanjian +
+                                "\nStatus Janjian  : " + janjian[position].sttsJanjian
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
                         trailing: Icon(Icons.arrow_drop_down_circle_outlined),

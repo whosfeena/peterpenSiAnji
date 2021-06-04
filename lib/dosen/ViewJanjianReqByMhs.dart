@@ -37,17 +37,6 @@ class _ViewJanjianReqByMhsState extends State<ViewJanjianReqByMhs> {
     return Scaffold(
       appBar:  AppBar(
           title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Tambah Jadwal Janjian")),
-                ).then(onGoBack);
-              },
-            )
-          ]
       ),
       body: FutureBuilder(
         future: apiservices().viewJanjianCreatedbyNim(nidn),

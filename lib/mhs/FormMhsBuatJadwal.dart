@@ -86,7 +86,9 @@ class _FormMhsBuatJadwalState extends State<FormMhsBuatJadwal> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: Text("Pengajuan Janjian"),),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: Form(
         key: _formKey,
           //mhs.nim = "72180188";

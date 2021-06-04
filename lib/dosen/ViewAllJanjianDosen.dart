@@ -96,24 +96,9 @@ class _ViewAllJanjianDosenState extends State<ViewAllJanjianDosen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     FlatButton(
-                                      child: Text("Update"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => DosenUpdateJanjian(title:"Form Pengajuan Janjian",
-                                              janjian:janjian[position], kd_janjian:janjian[position].kd_janjian ,)),
-                                        ).then(onGoBack);
-                                      },
-                                    ),
-                                    Divider(
-                                      color: Colors.black,
-                                      height: 20,
-                                    ),
-                                    FlatButton(
-                                        child: Text("Delete"),
+                                        child: Text("BATALKAN"),
                                         onPressed: () async{
-                                          apiservices().deleteJanjian(janjian[position].kd_janjian);
+                                          apiservices().dosenBatalkanJanji(janjian[position].kd_janjian);
                                           Navigator.pop(context);
                                           setState(() {});
                                         })

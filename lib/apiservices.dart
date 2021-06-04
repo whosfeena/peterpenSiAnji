@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
 
 class apiservices {
-  final String baseUrl = "http://172.20.10.3/peterpensianji/aplikasi-slim/public";
+  final String baseUrl = "http://192.168.100.9/peterpensianji/aplikasi-slim/public";
 
   Client client = Client();
 
@@ -54,6 +54,18 @@ class apiservices {
   }
 
 // ----------- UserGoogle ----------- //
+
+  Future<List<UserGoogle>> getUser() async{
+    final response = await client.get("$baseUrl/UserGoogle/getall");
+    if (response.body.isNotEmpty){
+      return UserGoogleFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+
+
   Future<bool> createSession(UserGoogle data) async{
     final response = await client.post("$baseUrl/UserGoogle/Add/",
         headers: {"content-type": "application/json"},
@@ -65,16 +77,15 @@ class apiservices {
       return false;
     }
   }
-  Future<bool> validate (String Username,String role) async{
-    UserGoogle model = new UserGoogle();
-    model.username = Username;
-    model.role =  role;
+  Future <List<UserGoogle>> validate (UserGoogle data) async{
     final response = await client.post("$baseUrl/UserGoogle/Validate",
         headers: {"content-type": "application/json"},
-        body: UserGoogleToJson(model)
+        body: UserGoogleToJson(data)
     );
-    if(response.body.isNotEmpty ){
-      return true;
+
+    if(response.statusCode == 200){
+      return UserGoogleFromJson(response.body);
+
     }
     else
       {
@@ -86,7 +97,7 @@ class apiservices {
     if (response.body != null){
       return true;
     }else{
-      return false;
+      return null;
     }
   }
 
@@ -168,6 +179,15 @@ class apiservices {
 
   Future<List<Janjian>> viewJanjianDisetujui(String nim) async {
     final response = await client.get("$baseUrl/Mhs/JanjianDisetujui/"+nim);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
+
+  Future<List<Janjian>> viewJanjianDitolak(String nim) async {
+    final response = await client.get("$baseUrl/Mhs/JanjianDitolak/"+nim);
     if (response.body.isNotEmpty){
       return janjianFromJson(response.body);
     }else{
@@ -265,6 +285,15 @@ class apiservices {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<List<Janjian>> dosenBatalkanJanji(String kd_janjian) async {
+    final response = await client.get("$baseUrl/Dosen/BatalkanJanjian/"+kd_janjian);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
     }
   }
 

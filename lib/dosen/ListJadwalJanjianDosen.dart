@@ -41,7 +41,7 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
     return Scaffold(
       appBar: new AppBar(title: Text("Jadwal Janjian Dosen")),
       body: FutureBuilder(
-        future: apiservices().viewJanjianbyNidn(nidn),
+        future: apiservices().viewJanjianByDosenTersedia(nidn),
         builder:
             (BuildContext context, AsyncSnapshot<List<Janjian>> snapshot) {
           if (snapshot.hasError) {
@@ -83,7 +83,9 @@ class _ListJadwalJanjianDosenState extends State<ListJadwalJanjianDosen> {
                                           context,
                                           MaterialPageRoute(builder: (context) => FormPengajuanJanjianMhs(title:"Form Pengajuan Janjian",
                                               janjian:janjian[position])),
-                                        ).then(onGoBack);
+                                        );
+
+
                                       },
                                     ),
                                   ]

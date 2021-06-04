@@ -220,6 +220,7 @@ class _FormPengajuanJanjianMhsState extends State<FormPengajuanJanjianMhs> {
                                 onPressed: () async {
                                   _formKey.currentState.save();
                                   setState(() => _isLoading = true);
+                                  janjian.isAvailable="FALSE";
                                   apiservices().mhsAjukanJdwlJanji(this.janjian, kd_janjian).then((isSuccess){
                                     setState(() => _isLoading = false);
                                     if (isSuccess){

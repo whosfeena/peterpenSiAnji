@@ -35,7 +35,9 @@ class _ListDosenState extends State<ListDosen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(title: Text("Daftar Dosen")),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: FutureBuilder(
         future: apiservices().getDosen(),
         builder:
@@ -70,7 +72,6 @@ class _ListDosenState extends State<ListDosen> {
                         trailing: Icon(Icons.arrow_forward_ios),
                         onTap: () {
                           //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
-                          Navigator.pop(context);
                           Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ListJadwalJanjianDosen(title: "Jadwal Janjian Dosen",

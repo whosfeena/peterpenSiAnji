@@ -8,6 +8,7 @@ import 'package:peterpan_app2/main.dart';
 import 'package:peterpan_app2/mhs/FormMhsBuatJadwal.dart';
 import 'package:peterpan_app2/mhs/FormPengajuanJanjianMhs.dart';
 import 'package:peterpan_app2/mhs/ListJanjianDisetujui.dart';
+import 'package:peterpan_app2/mhs/ListJanjianDitolak.dart';
 
 import '../apiservices.dart';
 import '../model.dart';
@@ -103,7 +104,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => ListDosen(title: "Buat Jadwal Janjian",)),
+                                        context, MaterialPageRoute(builder: (context) => ListDosen(title: "Daftar Dosen")),
                                       );
                                     },
                                     child: Center(
@@ -172,7 +173,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => ListJanjianDisetujui(title: "Buat Jadwal Janjian", nim:mhs.nim)),
+                                        context, MaterialPageRoute(builder: (context) => ListJanjianDisetujui(title: "Pengajuan Disetujui", nim:mhs.nim)),
                                       );
                                     },
                                     child: Center(
@@ -181,6 +182,29 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                         children: <Widget>[
                                           Icon(Icons.verified_outlined, size: 60.0),
                                           Text("Janjian Disetujui", style: TextStyle(
+                                              color: Colors.indigo,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                Card(
+                                  margin:EdgeInsets.all(2.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => ListJanjianDitolak(title: "Pengajuan Ditolak", nim:mhs.nim)),
+                                      );
+                                    },
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(Icons.cancel_outlined, size: 60.0),
+                                          Text("Janjian Ditolak", style: TextStyle(
                                               color: Colors.indigo,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 11)),

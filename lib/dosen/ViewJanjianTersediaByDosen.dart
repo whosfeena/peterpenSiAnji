@@ -76,9 +76,7 @@ class _ViewJanjianTersediaByDosenState extends State<ViewJanjianTersediaByDosen>
                                 fontWeight: FontWeight.bold)
                         ),
 
-                        subtitle: Text(
-                            "NIM : " + janjian[position].nim.toString()+
-                                "\nTanggal : " + janjian[position].tgl.toString() +
+                        subtitle: Text("Tanggal : " + janjian[position].tgl.toString() +
                                 "\nJam : " + janjian[position].jam.toString()
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
@@ -91,7 +89,7 @@ class _ViewJanjianTersediaByDosenState extends State<ViewJanjianTersediaByDosen>
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     FlatButton(
-                                      child: Text("Update"),
+                                      child: Text("Perbarui Jadwal"),
                                       onPressed: () {
                                         Navigator.pop(context);
                                         Navigator.push(
@@ -106,7 +104,7 @@ class _ViewJanjianTersediaByDosenState extends State<ViewJanjianTersediaByDosen>
                                       height: 20,
                                     ),
                                     FlatButton(
-                                        child: Text("Delete"),
+                                        child: Text("Hapus Janjian"),
                                         onPressed: () async{
                                           apiservices().deleteJanjian(janjian[position].kd_janjian);
                                           Navigator.pop(context);

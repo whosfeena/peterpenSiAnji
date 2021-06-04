@@ -37,28 +37,23 @@ class _MenuDaftarJanjianState extends State<MenuDaftarJanjian> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(title: Text("Daftar Dosen")),
+        appBar: new AppBar(title: Text("Kategori Janjian")),
         body:Column(
           children: <Widget>[
             Card(
               child: ListTile(
                 leading: Icon(Icons.list_alt),
                 trailing: Icon(Icons.arrow_forward_ios),
-                title: Text('Slot Jadwal Janjian Anda',
+                title: Text('Jadwal Janjian yang Anda Buat',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                         fontSize:15,
                         fontWeight: FontWeight.bold)),
-                subtitle: Text('Daftar jadwal yang telah anda buat',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: Colors.teal,
-                        fontSize:8)),
                 onTap: () {
                   //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ViewAllJanjianDosen(title: "Jadwal Janjian Dosen",
+                    MaterialPageRoute(builder: (context) => ViewAllJanjianDosen(title: "Slot Jadwal Anda",
                         nidn: nidn)),
                   ).then(onGoBack);
                 },
@@ -74,16 +69,10 @@ class _MenuDaftarJanjianState extends State<MenuDaftarJanjian> {
                     style: TextStyle(
                         fontSize:15,
                         fontWeight: FontWeight.bold)),
-                subtitle: Text('Daftar jadwal yang diajukan oleh mahasiswa',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                        color: Colors.teal,
-                        fontSize:8),),
                 onTap: () {
-                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ViewJanjianReqByMhs(title: "Jadwal Janjian Dosen",
+                    MaterialPageRoute(builder: (context) => ViewJanjianReqByMhs(title: "Pengajuan Janjian",
                         nidn: nidn)),
                   ).then(onGoBack);
                 },
@@ -94,22 +83,16 @@ class _MenuDaftarJanjianState extends State<MenuDaftarJanjian> {
                 child: ListTile(
                   leading: Icon(Icons.list_alt,),
                   trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text('Lihat Seluruh Jadwal Janjian',
+                  title: Text('Seluruh Jadwal Janjian',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize:15,
                           fontWeight: FontWeight.bold)),
-                  subtitle: Text('Menampilkan seluruh jadwal yang ditolak, diterima, dan masih menunggu.',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Colors.teal,
-                        fontSize:8),
-                  ),
                   onTap: () {
                     //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ViewJanjianDosenAll(title: "Jadwal Janjian Dosen",
+                      MaterialPageRoute(builder: (context) => ViewJanjianDosenAll(title: "Daftar Janjian",
                           nidn: nidn)),
                     ).then(onGoBack);
                   },
@@ -120,22 +103,16 @@ class _MenuDaftarJanjianState extends State<MenuDaftarJanjian> {
                 child: ListTile(
                   leading: Icon(Icons.list_alt,),
                   trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text('Lihat Daftar Janjian Tersedia',
+                  title: Text('Janjian yang Masih Tersedia',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize:15,
                           fontWeight: FontWeight.bold)),
-                  subtitle: Text('Menampilkan jadwal yang belum diambil mahasiswa.',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Colors.teal,
-                        fontSize:8),
-                  ),
                   onTap: () {
                     //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ListJadwalJanjianDosen()),);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ViewJanjianTersediaByDosen(title: "Jadwal Janjian Dosen",
+                      MaterialPageRoute(builder: (context) => ViewJanjianTersediaByDosen(title: "Slot Janjian Tersedia",
                           nidn: nidn)),
                     ).then(onGoBack);
                   },

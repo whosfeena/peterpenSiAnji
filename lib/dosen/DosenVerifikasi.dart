@@ -37,7 +37,9 @@ class _DosenVerifikasiState extends State<DosenVerifikasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(title: Text("Jadwal Janjian Dosen")),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: FutureBuilder(
         future: apiservices().ViewJanjianMenuggu(nidn),
         builder:
