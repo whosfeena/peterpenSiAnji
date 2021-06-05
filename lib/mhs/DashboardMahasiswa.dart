@@ -75,7 +75,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
           } else if (snapshot.connectionState == ConnectionState.done)
           {
            mahasiswa = snapshot.data;
-           mhs.nim = "72180188";
+           mhs.nim = nim;
             return Stack(
               children: <Widget>[
                 Container(

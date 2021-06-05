@@ -144,17 +144,19 @@ String janjianToJson(Janjian data){
 class UserGoogle {
   String username;
   String role;
-  UserGoogle ({this.username,this.role});
+  String id;
+  UserGoogle ({this.username,this.role,this.id});
 
   factory UserGoogle.fromJson(Map<String, dynamic> map){
     return UserGoogle(
         username: map["username"],
-        role: map["role"]
+        role: map["role"],
+        id: map["id"]
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"username" : username,"role" : role};
+    return {"username" : username,"role" : role, "id" : id};
   }
 }
 

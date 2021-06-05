@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
 
 class apiservices {
-  final String baseUrl = "http://192.168.100.9/peterpensianji/aplikasi-slim/public";
+  final String baseUrl = "http://192.168.1.6/peterpensianji/aplikasi-slim/public";
 
   Client client = Client();
 

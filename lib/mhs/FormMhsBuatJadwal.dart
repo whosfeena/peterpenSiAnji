@@ -50,7 +50,7 @@ class _FormMhsBuatJadwalState extends State<FormMhsBuatJadwal> {
       initialDate: _date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
-      selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
+      //selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
     );
 
     if (_datePicker != null && _datePicker != _date){
@@ -114,14 +114,14 @@ class _FormMhsBuatJadwalState extends State<FormMhsBuatJadwal> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                         Icons.format_list_numbered),
-                    enabled: true,
+                    enabled: false,
                     labelText: "NIM",
                     hintText: "Masukkan NIM",
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.fromLTRB(
                         20.0, 15.0, 20.0, 15.0),
                   ),
-                  //initialValue: this.janjian.nim,
+                  initialValue: nim,
                   onSaved: (String value) {
                     this.model.nim = value;
                     },

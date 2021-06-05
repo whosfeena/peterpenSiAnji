@@ -8,13 +8,13 @@ import 'DashboardDosen.dart';
 
 class FormRegisterDosen extends StatefulWidget {
   String title;
-  String nim;
+  String nidn;
   String namaDosen;
   String username;
-  FormRegisterDosen({Key key, @required this.title, @required this.nim, @required this.namaDosen, @required this.username}) : super(key: key);
+  FormRegisterDosen({Key key, @required this.title, @required this.nidn, @required this.namaDosen, @required this.username}) : super(key: key);
 
   @override
-  _FormRegisterDosenState createState() => _FormRegisterDosenState(title,nim,namaDosen,username);
+  _FormRegisterDosenState createState() => _FormRegisterDosenState(title,nidn,namaDosen,username);
 }
 
 class _FormRegisterDosenState extends State<FormRegisterDosen> {
@@ -25,12 +25,16 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
   UserGoogle Google = new UserGoogle();
   List<Dosen> dsn = new List();
 
+  final myNidnController = TextEditingController();
+  final myUsernameController = TextEditingController();
+  final myNamaController = TextEditingController();
 
-  String nim;
-  String namaMhs;
+
+  String nidn;
+  String namaDosen;
   String username;
 
-  _FormRegisterDosenState(this.title, this.nim, this.namaMhs, this.username);
+  _FormRegisterDosenState(this.title, this.nidn, this.namaDosen, this.username);
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +60,13 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
                   padding: EdgeInsets.all(15.0)
               ),
               new TextFormField(
+                  validator: (value){
+                    if(value.isEmpty && value.length == 0) {
+                      return "NIDN tidak boleh kosong";
+                    } else
+                      return null;
+                  },
+                  controller: myNidnController,
                   decoration: new InputDecoration(
                       labelText: "NIDN",
                       border: OutlineInputBorder(
@@ -70,6 +81,13 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
                   padding: EdgeInsets.all(7.0)
               ),
               new TextFormField(
+                  validator: (value){
+                    if(value.isEmpty && value.length == 0) {
+                      return "Nama tidak boleh kosong";
+                    } else
+                      return null;
+                  },
+                  controller: myNamaController,
                   decoration: new InputDecoration(
                       labelText: "Nama Lengkap",
                       border: OutlineInputBorder(
@@ -85,15 +103,18 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
               ),
               new TextFormField(
                   decoration: new InputDecoration(
+                    enabled: false,
                       labelText: "Username",
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(5),
                       )
                   ),
+                  initialValue: username,
                   onSaved: (String value) {
                     this.dosen.username = value;
                     this.Google.username = value;
                     this.Google.role = "0";
+                    this.Google.id=dosen.nidn;
                   }
               ),
               Padding(
@@ -112,11 +133,13 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
                     ),
                   ),
                   onPressed: () async {
-                    _formState.currentState.save();
-                    apiservices().createDosen(this.dosen);
-                    apiservices().createSession(this.Google);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => DashboardDosen(title: "Dashboard Dosen",)));
+                    if(_formState.currentState.validate()){
+                      _formState.currentState.save();
+                      apiservices().createDosen(this.dosen);
+                      apiservices().createSession(this.Google);
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => DashboardDosen(title: "Dashboard Dosen",)));
+                    }
                   }
 
               ),

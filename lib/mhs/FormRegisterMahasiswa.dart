@@ -24,6 +24,10 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
   UserGoogle Google = new UserGoogle();
   List<Mahasiswa> mhs = new List();
 
+  final myNimController = TextEditingController();
+  final myUsernameController = TextEditingController();
+  final myNamaController = TextEditingController();
+
 
   String nim;
   String namaMhs;
@@ -58,7 +62,14 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                   padding: EdgeInsets.all(15.0)
               ),
               new TextFormField(
-                decoration: new InputDecoration(
+                  validator: (value){
+                    if(value.isEmpty && value.length == 0) {
+                      return "NIM tidak boleh kosong";
+                    } else
+                      return null;
+                  },
+                  controller: myNimController,
+                  decoration: new InputDecoration(
                     labelText: "NIM",
                     border: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(5),
@@ -72,7 +83,14 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                   padding: EdgeInsets.all(7.0)
               ),
               new TextFormField(
-                decoration: new InputDecoration(
+                  validator: (value){
+                    if(value.isEmpty && value.length == 0) {
+                      return "Nama tidak boleh kosong";
+                    } else
+                      return null;
+                  },
+                  controller: myNamaController,
+                  decoration: new InputDecoration(
                     labelText: "Nama Lengkap",
                     border: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(5),
@@ -86,16 +104,20 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                   padding: EdgeInsets.all(15.0)
               ),
               new TextFormField(
-                decoration: new InputDecoration(
+                  controller: myUsernameController,
+                  decoration: new InputDecoration(
+                    enabled: false,
                     labelText: "Username",
                     border: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(5),
                     )
                 ),
+                  initialValue: username,
                   onSaved: (String value) {
                     this.mahasiswa.username = value;
                     this.Google.username = value;
                     this.Google.role = "1";
+                    this.Google.id = mahasiswa.nim;
 
                   }
               ),
@@ -115,11 +137,13 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                     ),
                   ),
                 onPressed: () async {
-                  _formState.currentState.save();
-                  apiservices().createMhs(this.mahasiswa);
-                  apiservices().createSession(this.Google);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => DashboardMahasiswa(title: "Dashboard Mahasiswa",)));
+                  if(_formState.currentState.validate()){
+                    _formState.currentState.save();
+                    apiservices().createMhs(this.mahasiswa);
+                    apiservices().createSession(this.Google);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => DashboardMahasiswa(title: "Dashboard Mahasiswa",nim : mahasiswa.nim, namaMhs: mahasiswa.namaMhs, username: mahasiswa.username, email: mahasiswa.username)));
+                  }
                 }
               ),
 

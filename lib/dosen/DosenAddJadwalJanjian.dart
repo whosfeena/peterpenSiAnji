@@ -33,6 +33,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
   TextEditingController dateCtl = TextEditingController();
   TextEditingController timeCtl = TextEditingController();
 
+
   //untuk calendar
   DateTime _date = DateTime.now();
   TimeOfDay _time = TimeOfDay.now();
@@ -49,7 +50,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
       initialDate: _date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
-      selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
+      //selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
     );
 
     if (_datePicker != null && _datePicker != _date){
@@ -85,7 +86,9 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: Text("Tambah Jadwal Janjian"),),
+      appBar:AppBar(
+        title: Text(widget.title),
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -96,7 +99,9 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                 SizedBox(height: 15,
                 ),
                 TextFormField(
+                  readOnly: true,
                   decoration: InputDecoration(
+                    enabled: false,
                     prefixIcon: Icon(
                         Icons.format_list_numbered),
                     labelText: "NIDN Dosen",
@@ -105,7 +110,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                     contentPadding: EdgeInsets.fromLTRB(
                         20.0, 15.0, 20.0, 15.0),
                   ),
-                  //initialValue: this.janjian.nidn,
+                  initialValue: nidn,
                   onSaved: (String value) {
                     this.model.nidn = value;
                   },

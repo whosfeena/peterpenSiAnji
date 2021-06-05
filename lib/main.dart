@@ -36,7 +36,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isLoggedIn = false;
   List<UserGoogle> modelUser = new List();
-bool sama = false;
+  bool sama = false;
+  String idUser = "";
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 
@@ -46,32 +47,33 @@ bool sama = false;
     {
       if (model.username == googleUser.email) {
         sama = true;
+        idUser = model.id;
         break;
       }
 
     }
     if(googleUser != null && googleUser.email.contains("si.ukdw.ac.id") && sama == true){
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  DashboardDosen()));
+          MaterialPageRoute(builder: (context) =>  DashboardDosen(title: "Dashboard Dosen",nidn : idUser, namaDosen: "", username: "", email: "")));
 
     }
     else if (googleUser != null && googleUser.email.contains("si.ukdw.ac.id") && sama == false)
       {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => FormRegisterDosen()));
+            MaterialPageRoute(builder: (context) => FormRegisterDosen(title: "",nidn: "",namaDosen: "",username: googleUser.email)));
 
       }
 
 
      else if(googleUser != null && googleUser.email.contains("gmail.com") && sama == true ){
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  DashboardMahasiswa()));
+          MaterialPageRoute(builder: (context) =>  DashboardMahasiswa(title: "Dashboard Mahasiswa",nim : idUser, namaMhs: "", username: "", email: "")));
     }
 
      else if(googleUser != null && googleUser.email.contains("gmail.com") && sama == false )
        {
        Navigator.pushReplacement(context,
-       MaterialPageRoute(builder: (context) => FormRegisterMahasiswa()));
+       MaterialPageRoute(builder: (context) => FormRegisterMahasiswa(title: "",nim: "",namaMhs: "",username: googleUser.email)));
        }
 
   }

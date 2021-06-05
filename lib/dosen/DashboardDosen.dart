@@ -72,7 +72,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
           } else if (snapshot.connectionState == ConnectionState.done)
           {
             dosen = snapshot.data;
-            dsn.nidn = "1234567891";
+            dsn.nidn = nidn;
             return Stack(
               children: <Widget>[
                 Container(
@@ -124,7 +124,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Daftar Pengajuan", nidn:dsn.nidn)),
+                                        context, MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Tambah Jadwal Janjian", nidn:dsn.nidn)),
                                       );
                                     },
                                     child: Center(
