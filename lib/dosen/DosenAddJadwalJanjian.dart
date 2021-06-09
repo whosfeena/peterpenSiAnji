@@ -50,7 +50,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
       initialDate: _date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
-      //selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
+      selectableDayPredicate: (DateTime val) => val.weekday == 6 || val.weekday == 7 ? false : true,
     );
 
     if (_datePicker != null && _datePicker != _date){
@@ -183,6 +183,7 @@ class _DosenAddJadwalJanjianState extends State<DosenAddJadwalJanjian> {
                       _formKey.currentState.save();
                       model.isAvailable = "TRUE";
                       model.sttsJanjian= "MENUNGGU";
+                      model.createdBy = "dosen";
                       apiservices().dosenCreateJanjian(this.model);
                       Navigator.pop(context);
                     }

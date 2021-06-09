@@ -42,6 +42,14 @@ class apiservices {
       return null;
     }
   }
+  Future<List<Janjian>> GetAllJanjian(String nidn) async {
+    final response = await client.get("$baseUrl/GetallJanjian/"+nidn);
+    if (response.body.isNotEmpty){
+      return janjianFromJson(response.body);
+    }else{
+      return null;
+    }
+  }
 
   //Melihat daftar janjian yang dimiliki Mahasiswa
   Future<List<Janjian>> viewJanjianbyNim(String nim) async {

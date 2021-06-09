@@ -104,7 +104,6 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                   padding: EdgeInsets.all(15.0)
               ),
               new TextFormField(
-                  controller: myUsernameController,
                   decoration: new InputDecoration(
                     enabled: false,
                     labelText: "Username",
@@ -142,7 +141,7 @@ class _FormRegisterMahasiswaState extends State<FormRegisterMahasiswa> {
                     apiservices().createMhs(this.mahasiswa);
                     apiservices().createSession(this.Google);
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => DashboardMahasiswa(title: "Dashboard Mahasiswa",nim : mahasiswa.nim, namaMhs: mahasiswa.namaMhs, username: mahasiswa.username, email: mahasiswa.username)));
+                        MaterialPageRoute(builder: (context) => DashboardMahasiswa(title: "Dashboard Mahasiswa",nim : mahasiswa.nim, namaMhs: mahasiswa.namaMhs, username: mahasiswa.username, email: mahasiswa.username,)));
                   }
                 }
               ),

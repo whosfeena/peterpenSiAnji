@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peterpan_app2/dosen/DosenAddJadwalJanjian.dart';
 import 'package:peterpan_app2/dosen/DosenVerifikasi.dart';
-import 'package:peterpan_app2/dosen/DosenViewGrafik.dart';
 import 'package:peterpan_app2/dosen/ListDosen.dart';
 import 'package:peterpan_app2/dosen/ListJadwalJanjianDosen.dart';
+import 'package:peterpan_app2/dosen/pie_chart_ring.dart';
 import 'package:peterpan_app2/main.dart';
 import 'package:peterpan_app2/mhs/ListJanjianDisetujui.dart';
 
@@ -170,7 +170,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
                                   child: InkWell(
                                     onTap: (){
                                       Navigator.push(
-                                        context, MaterialPageRoute(builder: (context) => DosenViewGrafik(title: "Grafik Janjian Anda")),
+                                        context, MaterialPageRoute(builder: (context) => piechart(title: "Grafik Janjian Anda", nidn:dsn.nidn)),
                                       );
                                     },
                                     child: Center(
@@ -204,37 +204,36 @@ class _DashboardDosenState extends State<DashboardDosen> {
         },
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: <Widget>[
             Container(
-              height: 140,
-              child: DrawerHeader(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  <Widget>[
-                    /*CircleAvatar(
-                      radius: 30,
-                   //   backgroundImage: NetworkImage('https://ssat.ukdw.ac.id/_photos/informasi/72180194.jpg'),
-                    ),*/
-                    SizedBox(width: 16,),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('Dycha Rizky', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 16),),
-                        Text('72180194', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 14),),
-                        Text('dycha@gmail.com', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 12),),
-                      ],
-                    )
+              width: double.infinity,
+              padding: EdgeInsets.all(20),
+              color: Theme.of(context).primaryColor,
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: 70,
+                      height: 70,
+                      margin: EdgeInsets.only(
+                        top: 20,
+                        bottom: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/icon_orang.png'),
+                          fit: BoxFit.fill),
+                        )
+                      ),
+                    Text(namaDosen, style: TextStyle(fontSize: 16,color: Colors.white),),
+                    Padding(padding: EdgeInsets.all(1.0)),
+                    Text(nidn, style: TextStyle(fontSize: 10,color: Colors.white),),
                   ],
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
                 ),
               ),
             ),
-
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('LOGOUT'),
@@ -244,6 +243,7 @@ class _DashboardDosenState extends State<DashboardDosen> {
             ),
           ],
         ),
+
       ),
     );
   }

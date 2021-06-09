@@ -230,37 +230,36 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
             },
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: <Widget>[
             Container(
-              height: 140,
-              child: DrawerHeader(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  <Widget>[
-                    /*CircleAvatar(
-                      radius: 30,
-                   //   backgroundImage: NetworkImage('https://ssat.ukdw.ac.id/_photos/informasi/72180194.jpg'),
-                    ),*/
-                    SizedBox(width: 16,),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('Dycha Rizky', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 16),),
-                        Text('72180194', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 14),),
-                        Text('dycha@gmail.com', style: TextStyle(fontFamily: 'Montserrat Medium', color: Colors.white, fontSize: 12),),
-                      ],
-                    )
+              width: double.infinity,
+              padding: EdgeInsets.all(20),
+              color: Theme.of(context).primaryColor,
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.only(
+                          top: 20,
+                          bottom: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/icon_orang.png'),
+                              fit: BoxFit.fill),
+                        )
+                    ),
+                    Text(namaMhs, style: TextStyle(fontSize: 16,color: Colors.white),),
+                    Padding(padding: EdgeInsets.all(1.0)),
+                    Text(nim, style: TextStyle(fontSize: 10,color: Colors.white),),
                   ],
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
                 ),
               ),
             ),
-
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('LOGOUT'),
@@ -270,6 +269,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
             ),
           ],
         ),
+
       ),
     );
   }

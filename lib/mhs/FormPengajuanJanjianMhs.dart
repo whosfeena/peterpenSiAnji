@@ -152,7 +152,7 @@ class _FormPengajuanJanjianMhsState extends State<FormPengajuanJanjianMhs> {
                       contentPadding: EdgeInsets.fromLTRB(
                           20.0, 15.0, 20.0, 15.0),
                     ),
-                    initialValue: this.janjian.nim,
+                    initialValue: nim,
                     onSaved: (String value) {
                       this.janjian.nim = value;
                       },

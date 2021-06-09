@@ -103,7 +103,7 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
               ),
               new TextFormField(
                   decoration: new InputDecoration(
-                    enabled: false,
+                    enabled: true,
                       labelText: "Username",
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(5),
@@ -138,7 +138,7 @@ class _FormRegisterDosenState extends State<FormRegisterDosen> {
                       apiservices().createDosen(this.dosen);
                       apiservices().createSession(this.Google);
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => DashboardDosen(title: "Dashboard Dosen",)));
+                          MaterialPageRoute(builder: (context) => DashboardDosen(title: "Dashboard Dosen",nidn:dosen.nidn, namaDosen: dosen.namaDosen, username: dosen.username)));
                     }
                   }
 
