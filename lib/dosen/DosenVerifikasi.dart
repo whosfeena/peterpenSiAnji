@@ -64,7 +64,13 @@ class _DosenVerifikasiState extends State<DosenVerifikasi> {
                                 fontSize:15,
                                 fontWeight: FontWeight.bold)
                         ),
-                        subtitle: Text("Tanggal : " + janjian[position].tgl + "\nJam : " + janjian[position].jam.toString() + "\nTersedia"
+                        subtitle: Text(
+                            "NIM : " + janjian[position].nim.toString()+
+                                "\nTanggal : " + janjian[position].tgl.toString() +
+                                "\nJam : " + janjian[position].jam.toString() +
+                                "\nTempat : " + janjian[position].tempat.toString() +
+                                "\nKeterangan : " + janjian[position].ketJanjian.toString() +
+                                "\nStatus Janjian : " + janjian[position].sttsJanjian.toString()
                         ),
                         leading: Icon(Icons.calendar_today_sharp),
                         trailing: Icon(Icons.arrow_drop_down_circle_outlined),

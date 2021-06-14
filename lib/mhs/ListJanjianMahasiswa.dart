@@ -43,17 +43,6 @@ class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
     return Scaffold(
       appBar:  AppBar(
           title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FormMhsBuatJadwal(title: "Pengajuan Janjian")),
-                ).then(onGoBack);
-              },
-            )
-          ]
       ),
       body: FutureBuilder(
         future: apiservices().viewJanjianbyNim(nim),

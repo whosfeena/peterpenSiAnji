@@ -44,7 +44,7 @@ class _ViewJanjianTersediaByDosenState extends State<ViewJanjianTersediaByDosen>
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Tambah Jadwal Janjian")),
+                  MaterialPageRoute(builder: (context) => DosenAddJadwalJanjian(title: "Tambah Jadwal Janjian", nidn: nidn,)),
                 ).then(onGoBack);
               },
             )
