@@ -86,7 +86,7 @@ class _ListJanjianMahasiswaState extends State<ListJanjianMahasiswa> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       OutlineButton(
-                                        child: Text("Hapus Janjian"),
+                                        child: Text("Hapus Janjiannn"),
                                         onPressed: () async{
                                           Navigator.pop(context);
                                           janjian[position].isAvailable = "FALSE";

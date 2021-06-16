@@ -135,7 +135,7 @@ class _DashboardMahasiswaState extends State<DashboardMahasiswa> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           Icon(Icons.format_list_bulleted, size: 60.0),
-                                          Text("Pengajuan Janji", style: TextStyle(
+                                          Text("Pengajuan Janjii", style: TextStyle(
                                               color: Colors.indigo,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 11)),
